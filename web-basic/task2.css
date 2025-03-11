@@ -1,0 +1,88 @@
+/* 레이아웃 */
+
+html, body {
+    margin: 0;
+}
+
+header {
+    padding: 0 40px;
+    border: 10px solid blue;
+    box-sizing: border-box;
+}
+nav {
+    width: 1200px;
+    margin: 0 auto;
+    border: 10px solid red;
+    box-sizing: border-box;
+}
+nav>ul {
+    list-style-type: none;
+}
+nav>ul>li {
+    display: inline-block;;
+    margin: 0 15px;
+}
+nav>ul>li>a {
+    display: inline-block;
+    width: 100px;
+}
+
+section {
+    float: left;
+    width: calc(100% - 400px);
+    border: 10px solid green;
+    box-sizing: border-box;
+}
+article {
+    margin: 0 auto;
+    width: 800px;
+    border: 10px solid #fff;
+    box-sizing: border-box;
+}
+article:first-child {
+    border-color: greenyellow;
+}
+article:nth-child(2) {
+    border-color: pink;
+}
+article:last-child {
+    border-color: lightcyan;
+}
+
+aside {
+    float: right;
+    width: 400px;
+    border: 10px solid lightgoldenrodyellow;
+    box-sizing: border-box;
+}
+.body::after {
+    content: "";
+    clear:both;
+    display: block;
+}
+
+footer {
+    padding: 0 40px;
+    border: 10px solid purple;
+    box-sizing: border-box;
+}
+
+/* 꾸미기 미션 */
+nav a {
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+}
+h2 {
+    font-family: 'HY견고딕', sans-serif;
+}
+h3 {
+    font-family: 'HY견고딕', sans-serif;
+    color: midnightblue;
+    margin-left: 20px;
+}
+article p {
+    font-family: "Comic Sans MS", "Comic Sans", cursive;;
+    color: #808080;
+}
