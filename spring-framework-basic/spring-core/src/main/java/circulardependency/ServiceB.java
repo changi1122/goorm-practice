@@ -8,11 +8,11 @@ import javax.annotation.PostConstruct;
 @Service
 public class ServiceB {
 
-    private ServiceB serviceB;
+    private ServiceA serviceA;
 
     @Autowired  // setter 주입으로 변경
-    public void setServiceB(ServiceB serviceB) {
-        this.serviceB = serviceB;
+    public void setServiceA(ServiceA serviceA) {
+        this.serviceA = serviceA;
     }
 
     @PostConstruct

@@ -6,13 +6,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class ServiceA {
 
-    private final ServiceB serviceB;
+    private ServiceB serviceB;
 
     @Autowired
-    public ServiceA(ServiceB serviceB) {
-        this.serviceB = serviceB;
+    public ServiceB getServiceB(ServiceB serviceB) {
+        return serviceB;
     }
-    
+
     public void printSomething() {
         System.out.println("작동 확인!!");
     }
