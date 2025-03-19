@@ -1,0 +1,58 @@
+/* 레이아웃 */
+
+html, body {
+    margin: 0;
+    line-height: 1.6;
+    font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+}
+
+header {
+    height: 140px;
+    padding: 40px 40px 30px;
+    border-bottom: 2px solid #D1D5DA;
+    box-sizing: border-box;
+}
+header h1 {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+section {
+    float: left;
+    width: calc(100% - 400px);
+    border-right: 2px solid #D1D5DA;
+    box-sizing: border-box;
+}
+article {
+    margin: 40px auto;
+    width: 960px;
+    border: 10px solid #fff;
+    box-sizing: border-box;
+}
+
+.body>section {
+    min-height: calc(100vh - 200px);
+}
+.body::after {
+    content: "";
+    clear:both;
+    display: block;
+}
+
+aside {
+    float: right;
+    width: 400px;
+    box-sizing: border-box;
+}
+
+footer {
+    height: 60px;
+    padding: 20px 40px;
+    border-top: 2px solid #D1D5DA;
+    box-sizing: border-box;
+}
+footer>p {
+    text-align: center;
+    font-size: 14px;
+    color: #727272
+}

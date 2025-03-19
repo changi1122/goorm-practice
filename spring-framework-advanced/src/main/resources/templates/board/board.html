@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>게시판 목록</title>
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/board.css}">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700&amp;display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>구름톤 스프링프레임워크 고급 미션 게시판</h1>
+    </header>
+    <div class="body">
+        <section>
+            <article>
+                <h2>글 목록</h2>
+                <table class="board-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 60px">ID</th>
+                            <th style="width: 120px">카테고리</th>
+                            <th>제목</th>
+                            <th style="width: 180px">작성자</th>
+                            <th style="width: 140px">작성일시</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="post : ${ boardList }">
+                            <td th:text="${post.id}">글 ID</td>
+                            <td th:text="${post.category}">카테고리</td>
+                            <td><a th:text="${post.title}" th:href="@{|/board/${post.id}|}">제목</a></td>
+                            <td>작성자명(TODO)</td>
+                            <td th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}">2000-00-00 00:00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </article>
+        </section>
+        <aside>
+            <p>TODO: 로그인 및 회원가입</p>
+        </aside>
+    </div>
+    <footer>
+        <p>구름톤 스프링프레임워크 고급 미션 게시판 by Woochang Lee</p>
+    </footer>
+</body>
+</html>
