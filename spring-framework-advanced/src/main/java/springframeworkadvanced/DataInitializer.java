@@ -33,7 +33,7 @@ public class DataInitializer implements CommandLineRunner {
         return new Board(
                 null,
                 title,
-                "",
+                "<p>hello world</p>",
                 "카테고리",
                 LocalDateTime.of(2025, 3, 19, 13, 10)
         );

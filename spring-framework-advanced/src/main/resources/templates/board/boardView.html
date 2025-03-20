@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${post.title}">게시글 상세 화면</title>
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/board.css}">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700&amp;display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>구름톤 스프링프레임워크 고급 미션 게시판</h1>
+    </header>
+    <div class="body">
+        <section>
+            <article>
+                <p th:text="${post.category}"></p>
+                <h2 th:text="${post.title}">글 제목</h2>
+                <div th:utext="${post.body}">
+                    본문
+                </div>
+            </article>
+        </section>
+        <aside>
+            <p>TODO: 로그인 및 회원가입</p>
+        </aside>
+    </div>
+    <footer>
+        <p>구름톤 스프링프레임워크 고급 미션 게시판 by Woochang Lee</p>
+    </footer>
+</body>
+</html>

@@ -56,3 +56,17 @@ footer>p {
     font-size: 14px;
     color: #727272
 }
+
+@media (max-width: 1372px) {
+    section {
+        width: calc(100% - 320px);
+    }
+    article {
+        width: 100%;
+    }
+    aside {
+        float: right;
+        width: 320px;
+        box-sizing: border-box;
+    }
+}
