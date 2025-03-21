@@ -20,6 +20,12 @@
                 <div th:utext="${post.body}">
                     본문
                 </div>
+                <div class="action">
+                    <ul>
+                        <li><a th:href="@{|/board/${post.id}/edit|}">글 수정하기</a></li>
+                        <li><a th:href="@{|/board|}">목록으로 돌아가기</a></li>
+                    </ul>
+                </div>
             </article>
         </section>
         <aside>

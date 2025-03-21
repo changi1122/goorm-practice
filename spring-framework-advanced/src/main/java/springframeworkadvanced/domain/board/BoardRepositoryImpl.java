@@ -12,7 +12,8 @@ public class BoardRepositoryImpl implements BoardRepository {
 
     @Override
     public Board save(Board board) {
-        board.setId(sequence++);
+        if (board.getId() == null)
+            board.setId(sequence++);
         boardMap.put(board.getId(), board);
         return board;
     }
@@ -34,6 +35,7 @@ public class BoardRepositoryImpl implements BoardRepository {
         boardMap.forEach((k, v) -> {
             result.add(v);
         });
+        Collections.reverse(result);
         return result;
     }
 

@@ -1,11 +1,20 @@
 package springframeworkadvanced.web.board.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import springframeworkadvanced.domain.board.Board;
 
 public class BoardRequestDto {
 
+    @NotBlank
+    @Size(max = 100)
     private String title;
+
+    @NotBlank
     private String body;
+
+    @NotBlank
+    @Size(max = 10)
     private String category;
 
     public BoardRequestDto() {
