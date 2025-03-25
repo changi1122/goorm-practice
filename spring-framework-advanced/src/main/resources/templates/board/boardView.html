@@ -7,6 +7,15 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/board.css}">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700&amp;display=swap" rel="stylesheet">
+    <script>
+        function deletePost(id) {
+            fetch(`/board/${id}`, {
+                method: 'DELETE',
+                credentials: 'include'
+            })
+                .then(res => res.ok ? location.href = '/board' : alert('삭제 실패'));
+        }
+    </script>
 </head>
 <body>
     <header>
@@ -22,7 +31,8 @@
                 </div>
                 <div class="action">
                     <ul>
-                        <li><a th:href="@{|/board/${post.id}/edit|}">글 수정하기</a></li>
+                        <li><a th:href="@{|/board/${post.id}/edit|}">글 수정</a></li>
+                        <li><a href="#" th:onclick="@{|deletePost(${post.id})|}">글 삭제</a></li>
                         <li><a th:href="@{|/board|}">목록으로 돌아가기</a></li>
                     </ul>
                 </div>
