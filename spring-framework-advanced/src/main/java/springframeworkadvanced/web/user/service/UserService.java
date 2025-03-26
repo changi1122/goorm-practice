@@ -1,6 +1,8 @@
 package springframeworkadvanced.web.user.service;
 
 
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import springframeworkadvanced.domain.user.User;
 import springframeworkadvanced.web.user.dto.SignupDto;
 
@@ -18,4 +20,6 @@ public interface UserService {
     List<User> list();
 
     Long count();
+
+    UserDetails loadUserByLoginId(String username) throws UsernameNotFoundException;
 }

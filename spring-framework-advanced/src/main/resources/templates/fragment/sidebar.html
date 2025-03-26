@@ -2,13 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 <aside th:fragment="sidebarFragment">
+    <th:block th:if="${#authentication} != null">
+        <p>
+            로그인한 회원: <span th:text="${#authentication.name}"></span>
+        </p>
+        <p>
+            <a th:href="@{/logoutout}">로그아웃</a>
+        </p>
+    </th:block>
     <p>
         <a th:href="@{/signup}">회원가입</a>
     </p>
     <p>
         <a th:href="@{/login}">로그인</a>
     </p>
-
     <p>
         <a th:href="@{/}">홈 화면 이동</a>
     </p>

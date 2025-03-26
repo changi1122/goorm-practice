@@ -1,13 +1,18 @@
 package springframeworkadvanced.domain.user;
 
 
+import springframeworkadvanced.domain.common.UserRole;
+
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class User {
 
     private String loginId;
     private String password;
     private String username;
+    private UserRole userRole;
     private LocalDateTime createdAt;
 
     public String getLoginId() {
@@ -34,11 +39,33 @@ public class User {
         this.username = username;
     }
 
+    public List<String> getRoleList() {
+        return List.of(userRole.getRole());
+    }
+
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "loginId='" + loginId + '\'' +
+                ", username='" + username + '\'' +
+                ", userRole=" + userRole +
+                ", createdAt=" + createdAt +
+                '}';
     }
 }
