@@ -1,0 +1,65 @@
+/* 게시판 목록 페이지 */
+
+article h2 {
+    margin-bottom: 40px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.user-form {
+    text-align: center;
+}
+.user-form input[type=text] {
+    display: block;
+    margin: 0 auto 20px;
+    width: 100%;
+    max-width: 300px;
+    font-size: 16px;
+    padding: 12px;
+    border: 1px solid #D1D5DA;
+    box-sizing: border-box;
+}
+.user-form input[type=password] {
+    display: block;
+    margin: 0 auto 20px;
+    width: 100%;
+    max-width: 300px;
+    font-size: 16px;
+    padding: 12px;
+    border: 1px solid #D1D5DA;
+    box-sizing: border-box;
+}
+.user-form textarea {
+    width: 100%;
+    min-height: 100px;
+    resize: vertical;
+    padding: 12px;
+    font-size: 15px;
+    border: 1px solid #D1D5DA;
+    box-sizing: border-box;
+}
+.user-form input[type=submit] {
+    padding: 12px 20px;
+    font-size: 18px;
+    background-color: #fff;
+    border: 1px solid #D1D5DA;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+.user-form .error-label {
+    font-size: 14px;
+    color: red;
+    margin-top: -10px;
+    margin-bottom: 20px;
+}
+
+.action {
+    margin-top: 40px;
+    text-align: center;
+}
+.action a {
+    padding: 4px 8px;
+    font-size: 16px;
+    text-decoration: none;
+    color: black;
+}

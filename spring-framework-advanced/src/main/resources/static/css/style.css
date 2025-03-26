@@ -42,7 +42,15 @@ article {
 aside {
     float: right;
     width: 400px;
+    padding: 20px;
     box-sizing: border-box;
+}
+
+aside > p {
+    margin: 10px 0;
+}
+aside > p a {
+    color: black;
 }
 
 footer {
