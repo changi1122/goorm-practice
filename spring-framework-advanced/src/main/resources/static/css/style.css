@@ -46,10 +46,10 @@ aside {
     box-sizing: border-box;
 }
 
-aside > p {
+aside p {
     margin: 10px 0;
 }
-aside > p a {
+aside p a {
     color: black;
 }
 

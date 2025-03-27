@@ -32,12 +32,13 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        userRepository.save(createUser("user01", "pass01"));
+        User user01 = userRepository.save(createUser("user01", "pass01"));
+        User user02 = userRepository.save(createUser("user02", "pass02"));
 
-        boardRepository.save(createBoard("글 제목 1"));
-        boardRepository.save(createBoard("글 제목 2"));
-        boardRepository.save(createBoard("글 제목 3"));
-        boardRepository.save(createBoard("글 제목 4"));
+        boardRepository.save(createBoard("글 제목 1", user01));
+        boardRepository.save(createBoard("글 제목 2", user01));
+        boardRepository.save(createBoard("글 제목 3", user02));
+        boardRepository.save(createBoard("글 제목 4", user02));
     }
 
     private User createUser(String loginId, String password) {
@@ -50,12 +51,13 @@ public class DataInitializer implements CommandLineRunner {
         return user;
     }
 
-    private Board createBoard(String title) {
+    private Board createBoard(String title, User author) {
         return new Board(
                 null,
                 title,
                 "<p>hello world</p>",
                 "카테고리",
+                author,
                 LocalDateTime.of(2025, 3, 19, 13, 10)
         );
     }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import springframeworkadvanced.domain.board.Board;
 import springframeworkadvanced.domain.board.BoardRepository;
+import springframeworkadvanced.domain.user.User;
 import springframeworkadvanced.web.board.dto.BoardRequestDto;
 
 import java.time.LocalDateTime;
@@ -20,16 +21,20 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public Board create(BoardRequestDto request, LocalDateTime now) {
+    public Board create(BoardRequestDto request, LocalDateTime now, User author) {
         Board post = request.toEntity();
         post.setCreatedAt(now);
+        post.setAuthor(author);
 
         return boardRepository.save(post);
     }
 
     @Override
-    public Board update(Long id, BoardRequestDto request, LocalDateTime now) {
+    public Board update(Long id, BoardRequestDto request, LocalDateTime now, User author) {
         Board post = boardRepository.findById(id).orElseThrow();
+
+        if (!post.getAuthor().equals(author))
+            throw new RuntimeException("글 작성자가 아님");
 
         post.setTitle(request.getTitle());
         post.setBody(request.getBody());
@@ -40,7 +45,11 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(Long id, User author) {
+        Board post = boardRepository.findById(id).orElseThrow();
+        if (!post.getAuthor().equals(author))
+            throw new RuntimeException("글 작성자가 아님");
+
         boardRepository.deleteById(id);
     }
 

@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import springframeworkadvanced.domain.board.Board;
 import springframeworkadvanced.domain.model.DetailsUser;
+import springframeworkadvanced.domain.user.User;
 import springframeworkadvanced.web.board.dto.BoardRequestDto;
 import springframeworkadvanced.web.board.service.BoardService;
+import springframeworkadvanced.web.user.service.UserService;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,16 +24,18 @@ import java.util.List;
 public class BoardController {
 
     private final BoardService boardService;
+    private final UserService userService;
 
     @Autowired
-    public BoardController(BoardService boardService) {
+    public BoardController(BoardService boardService, UserService userService) {
         this.boardService = boardService;
+        this.userService = userService;
     }
 
     @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     @PostMapping("/board")
     public String createBoard(@Valid BoardRequestDto post, BindingResult bindingResult,
-                              RedirectAttributes redirectAttributes) {
+                              RedirectAttributes redirectAttributes, @AuthenticationPrincipal DetailsUser user) {
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute(
@@ -42,13 +46,15 @@ public class BoardController {
             return "redirect:/board/new";
         }
 
-        Board createdPost = boardService.create(post, LocalDateTime.now());
+        User author = userService.read(user.getUsername());
+        Board createdPost = boardService.create(post, LocalDateTime.now(), author);
         return "redirect:/board/" + createdPost.getId();
     }
 
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     @PostMapping("/board/{id}")
     public String updateBoard(@PathVariable Long id, @Valid BoardRequestDto post, BindingResult bindingResult,
-                              RedirectAttributes redirectAttributes) {
+                              RedirectAttributes redirectAttributes, @AuthenticationPrincipal DetailsUser user) {
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute(
@@ -59,13 +65,14 @@ public class BoardController {
             return "redirect:/board/" + id + "/edit";
         }
 
-        Board updatedPost = boardService.update(id, post, LocalDateTime.now());
+        User author = userService.read(user.getUsername());
+        Board updatedPost = boardService.update(id, post, LocalDateTime.now(), author);
         return "redirect:/board/" + updatedPost.getId();
     }
 
 
     @GetMapping(value = { "/", "/board" })
-    public String listBoard(Model model/*, @AuthenticationPrincipal DetailsUser user*/) {
+    public String listBoard(Model model) {
         List<Board> boardList = boardService.list();
         model.addAttribute(boardList);
 
@@ -80,13 +87,15 @@ public class BoardController {
         return "board/boardView";
     }
 
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     @DeleteMapping("/board/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteBoard(@PathVariable Long id) {
-        boardService.delete(id);
+    public void deleteBoard(@PathVariable Long id, @AuthenticationPrincipal DetailsUser user) {
+        User author = userService.read(user.getUsername());
+        boardService.delete(id, author);
     }
 
-
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     @GetMapping("/board/new")
     public String boardForm(Model model) {
 
@@ -99,6 +108,7 @@ public class BoardController {
         return "board/boardForm";
     }
 
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     @GetMapping("/board/{id}/edit")
     public String boardEditForm(@PathVariable Long id, Model model) {
 

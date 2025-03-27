@@ -5,7 +5,6 @@ import springframeworkadvanced.domain.common.UserRole;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class User {
 
@@ -57,6 +56,14 @@ public class User {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof User))
+            return false;
+
+        return ((User) obj).loginId.equals(this.loginId);
     }
 
     @Override

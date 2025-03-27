@@ -57,6 +57,7 @@ class BoardRepositoryImplTest {
                 title,
                 "",
                 "카테고리",
+                null,
                 LocalDateTime.of(2025, 3, 19, 13, 10)
         );
     }

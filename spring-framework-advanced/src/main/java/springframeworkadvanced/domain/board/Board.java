@@ -1,5 +1,7 @@
 package springframeworkadvanced.domain.board;
 
+import springframeworkadvanced.domain.user.User;
+
 import java.time.LocalDateTime;
 
 public class Board {
@@ -8,17 +10,19 @@ public class Board {
     private String title;
     private String body;
     private String category;
+    private User author;
 
     private LocalDateTime createdAt;
     private LocalDateTime lastEditedAt;
 
     public Board() {}
 
-    public Board(Long id, String title, String body, String category, LocalDateTime createdAt) {
+    public Board(Long id, String title, String body, String category, User author, LocalDateTime createdAt) {
         this.id = id;
         this.title = title;
         this.body = body;
         this.category = category;
+        this.author = author;
         this.createdAt = createdAt;
     }
 
@@ -60,6 +64,14 @@ public class Board {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
     public LocalDateTime getLastEditedAt() {
