@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle}">게시글 작성</title>
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/board.css}">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700&amp;display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>구름톤 스프링프레임워크 고급 미션 게시판</h1>
+    </header>
+    <div class="body">
+        <section>
+            <article>
+                <h2 th:text="${pageTitle}">글쓰기</h2>
+
+                <form class="board-form" th:action="${action}" method="post" th:object="${post}">
+                    <input type="text" th:field="*{category}" placeholder="카테고리 입력" style="max-width: 300px;">
+                    <p class="error-label" th:errors="*{category}">카테고리 오류</p>
+                    <input type="text" th:field="*{title}" placeholder="글 제목">
+                    <p class="error-label" th:errors="*{title}">글 제목 오류</p>
+                    <textarea th:field="*{body}" placeholder="본문"></textarea>
+                    <p class="error-label" th:errors="*{body}">본문 오류</p>
+
+                    <div class="action">
+                        <input type="submit" value="글쓰기">
+                    </div>
+                </form>
+            </article>
+        </section>
+        <aside th:replace="~{fragment/sidebar.html}">
+        </aside>
+    </div>
+    <footer>
+        <p>구름톤 스프링프레임워크 고급 미션 게시판 by Woochang Lee</p>
+    </footer>
+</body>
+</html>

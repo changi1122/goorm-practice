@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${post.title}">게시글 상세 화면</title>
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/board.css}">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700&amp;display=swap" rel="stylesheet">
+    <script>
+        function deletePost(id) {
+            fetch(`/board/${id}`, {
+                method: 'DELETE',
+                credentials: 'include'
+            })
+                .then(res => res.ok ? location.href = '/board' : alert('삭제 실패'));
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>구름톤 스프링프레임워크 고급 미션 게시판</h1>
+    </header>
+    <div class="body">
+        <section>
+            <article>
+                <p th:text="${post.category}"></p>
+                <h2 th:text="${post.title}">글 제목</h2>
+                <div th:utext="${post.body}">
+                    본문
+                </div>
+                <div class="action">
+                    <ul>
+                        <li><a th:href="@{|/board/${post.id}/edit|}">글 수정</a></li>
+                        <li><a href="#" th:onclick="@{|deletePost(${post.id})|}">글 삭제</a></li>
+                        <li><a th:href="@{|/board|}">목록으로 돌아가기</a></li>
+                    </ul>
+                </div>
+            </article>
+        </section>
+        <aside th:replace="~{fragment/sidebar.html}">
+        </aside>
+    </div>
+    <footer>
+        <p>구름톤 스프링프레임워크 고급 미션 게시판 by Woochang Lee</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/user.css}">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700&amp;display=swap" rel="stylesheet">
+</head>
+<body>
+<header>
+    <h1>구름톤 스프링프레임워크 고급 미션 게시판</h1>
+</header>
+<div class="body">
+    <section>
+        <article>
+            <form class="user-form" th:object="${signup}" th:action="@{/user}" method="post">
+                <h2>회원가입</h2>
+                <input type="text" th:field="*{loginId}" placeholder="아이디 입력">
+                <p class="error-label" th:errors="*{loginId}">아이디 입력 오류</p>
+                <input type="password" th:field="*{password}" placeholder="비밀번호 입력">
+                <p class="error-label" th:errors="*{password}">비밀번호 입력 오류</p>
+                <input type="text" th:field="*{username}" placeholder="닉네임 입력">
+                <p class="error-label" th:errors="*{username}">닉네임 입력 오류</p>
+                <div class="action">
+                    <input type="submit" value="회원가입하기">
+                </div>
+            </form>
+        </article>
+    </section>
+    <aside th:replace="~{fragment/sidebar.html}">
+    </aside>
+</div>
+<footer>
+    <p>구름톤 스프링프레임워크 고급 미션 게시판 by Woochang Lee</p>
+</footer>
+</body>
+</html>
