@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: database-orm
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3307/goormboard
+    username: changi1122
+    password: changi1122
+
+  jpa:
+    show-sql: true
+    database: mysql
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      ddl-auto: none
+
+jwt:
+  key: asdkfjlkawddfek543154ipo1u4djskafjklas34234ydsd
+  time: 86400000
