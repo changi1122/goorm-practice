@@ -17,6 +17,9 @@ spring:
     hibernate:
       ddl-auto: none
 
+mybatis:
+  mapper-locations: classpath:/mappers/**/*.xml
+
 jwt:
   key: asdkfjlkawddfek543154ipo1u4djskafjklas34234ydsd
   time: 86400000

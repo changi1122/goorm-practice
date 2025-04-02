@@ -1,5 +1,6 @@
-package databaseorm.domain.board;
+package databaseorm.domain.board.dao;
 
+import databaseorm.domain.board.Board;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -29,7 +29,7 @@
                     <tbody>
                         <tr th:each="post : ${ boardList }">
                             <td th:text="${post.id}">글 ID</td>
-                            <td th:text="${post.category}">카테고리</td>
+                            <td><a th:text="${post.category}" th:href="@{|/board?category=${post.category}|}">카테고리</a></td>
                             <td><a th:text="${post.title}" th:href="@{|/board/${post.id}|}">제목</a></td>
                             <td th:text="${post.author.username}">작성자</td>
                             <td th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}">2000-00-00 00:00</td>

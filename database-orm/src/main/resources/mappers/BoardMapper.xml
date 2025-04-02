@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="databaseorm.domain.board.dao.BoardMapper">
+
+    <insert id="insertBoard" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO board(title, body, category, created_at, edited_at, user_id) VALUES (
+            #{title}, #{body}, #{category},
+            #{createdAt, jdbcType=TIMESTAMP}, NULL,
+            #{author.loginId}
+        )
+    </insert>
+
+    <update id="updateBoard">
+        UPDATE board
+        SET
+        title = #{post.title},
+        body = #{post.body},
+        category = #{post.category},
+        edited_at = #{post.lastEditedAt, jdbcType=TIMESTAMP}
+        WHERE
+        post_id = #{id}
+    </update>
+
+    <select id="selectBoardAll" resultMap="boardMap">
+        SELECT
+        b.post_id,
+        b.title,
+        b.category,
+        b.created_at,
+        b.edited_at,
+        b.user_id,
+        u.username
+        FROM board b
+        LEFT JOIN users u ON (b.user_id = u.login_id)
+        ORDER BY b.created_at DESC, b.title DESC
+    </select>
+
+    <select id="selectBoardByCategory" resultMap="boardMap">
+        SELECT
+        b.post_id,
+        b.title,
+        b.category,
+        b.created_at,
+        b.edited_at,
+        b.user_id,
+        u.username
+        FROM board b
+        LEFT JOIN users u ON (b.user_id = u.login_id)
+        WHERE b.category = #{category}
+        ORDER BY b.created_at DESC, b.title DESC
+    </select>
+
+    <select id="selectBoardById" resultMap="boardMap">
+        SELECT
+            b.post_id,
+            b.title,
+            b.body,
+            b.category,
+            b.created_at,
+            b.edited_at,
+            b.user_id,
+            u.username
+        FROM board b
+        LEFT JOIN users u ON (b.user_id = u.login_id)
+        WHERE b.post_id = #{id}
+    </select>
+
+    <delete id="deleteBoard">
+        DELETE FROM board
+        WHERE post_id = #{id}
+    </delete>
+
+    <select id="count">
+        SELECT count(*)
+        FROM board;
+    </select>
+
+    <resultMap id="boardMap" type="databaseorm.domain.board.Board">
+        <id property="id" column="post_id"/>
+        <result property="title" column="title"/>
+        <result property="body" column="body"/>
+        <result property="category" column="category"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="lastEditedAt" column="edited_at"/>
+        <association property="author" javaType="databaseorm.domain.user.User">
+            <id property="loginId" column="user_id" />
+            <result property="username" column="username"/>
+        </association>
+    </resultMap>
+</mapper>

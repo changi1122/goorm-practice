@@ -1,21 +1,43 @@
 package databaseorm.domain.board;
 
 import databaseorm.domain.user.User;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "board")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Board {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "post_id")
     private Long id;
+
+    @Column(name = "title")
     private String title;
+
+    @Column(name = "body")
     private String body;
+
+    @Column(name = "category")
     private String category;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
     private User author;
 
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
-    private LocalDateTime lastEditedAt;
 
-    public Board() {}
+    @Column(name = "edited_at")
+    private LocalDateTime lastEditedAt;
 
     public Board(Long id, String title, String body, String category, User author, LocalDateTime createdAt) {
         this.id = id;
@@ -24,61 +46,5 @@ public class Board {
         this.category = category;
         this.author = author;
         this.createdAt = createdAt;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getBody() {
-        return body;
-    }
-
-    public void setBody(String body) {
-        this.body = body;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public User getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(User author) {
-        this.author = author;
-    }
-
-    public LocalDateTime getLastEditedAt() {
-        return lastEditedAt;
-    }
-
-    public void setLastEditedAt(LocalDateTime lastEditedAt) {
-        this.lastEditedAt = lastEditedAt;
     }
 }

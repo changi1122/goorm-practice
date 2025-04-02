@@ -1,12 +1,12 @@
 package databaseorm;
 
+import databaseorm.domain.board.dao.BoardRepository;
 import databaseorm.domain.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import databaseorm.domain.board.Board;
-import databaseorm.domain.board.BoardRepository;
 import databaseorm.domain.common.UserRole;
 import databaseorm.domain.user.User;
 
@@ -40,10 +40,17 @@ public class DataInitializer implements CommandLineRunner {
                 () -> userRepository.save(createUser("user02", "pass02"))
         );
 
-        boardRepository.save(createBoard("글 제목 1", user01));
-        boardRepository.save(createBoard("글 제목 2", user01));
-        boardRepository.save(createBoard("글 제목 3", user02));
-        boardRepository.save(createBoard("글 제목 4", user02));
+        if (!boardRepository.existsByTitle("글 제목 1"))
+            boardRepository.save(createBoard("글 제목 1", user01));
+
+        if (!boardRepository.existsByTitle("글 제목 2"))
+            boardRepository.save(createBoard("글 제목 2", user01));
+
+        if (!boardRepository.existsByTitle("글 제목 3"))
+            boardRepository.save(createBoard("글 제목 3", user02));
+
+        if (!boardRepository.existsByTitle("글 제목 4"))
+            boardRepository.save(createBoard("글 제목 4", user02));
     }
 
     private User createUser(String loginId, String password) {

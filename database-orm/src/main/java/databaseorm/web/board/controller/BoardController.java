@@ -16,6 +16,7 @@ import databaseorm.domain.user.User;
 import databaseorm.web.board.dto.BoardRequestDto;
 import databaseorm.web.board.service.BoardService;
 import databaseorm.web.user.service.UserService;
+import org.thymeleaf.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -72,10 +73,16 @@ public class BoardController {
 
 
     @GetMapping(value = { "/", "/board" })
-    public String listBoard(Model model) {
-        List<Board> boardList = boardService.list();
-        model.addAttribute(boardList);
+    public String listBoard(String category, Model model) {
 
+        List<Board> boardList;
+
+        if (StringUtils.isEmpty(category))
+            boardList = boardService.list();
+        else
+            boardList = boardService.listByCategory(category);
+
+        model.addAttribute(boardList);
         return "board/board";
     }
 

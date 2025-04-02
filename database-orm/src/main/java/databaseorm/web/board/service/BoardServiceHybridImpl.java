@@ -1,37 +1,43 @@
 package databaseorm.web.board.service;
 
-import databaseorm.domain.board.dao.BoardRepository;
-import lombok.AllArgsConstructor;
-import org.springframework.security.access.AccessDeniedException;
-import org.springframework.stereotype.Service;
 import databaseorm.domain.board.Board;
+import databaseorm.domain.board.dao.BoardMapper;
+import databaseorm.domain.board.dao.BoardRepository;
 import databaseorm.domain.user.User;
 import databaseorm.web.board.dto.BoardRequestDto;
+import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Primary
 @Service
 @AllArgsConstructor
-public class BoardServiceImpl implements BoardService {
+@Transactional(readOnly = true)
+public class BoardServiceHybridImpl implements BoardService {
 
-    private final BoardRepository boardRepository;
+    private BoardRepository boardRepository;
+    private BoardMapper boardMapper;
 
     @Override
+    @Transactional
     public Board create(BoardRequestDto request, LocalDateTime now, User author) {
         Board post = request.toEntity();
         post.setCreatedAt(now);
         post.setAuthor(author);
-
         return boardRepository.save(post);
     }
 
     @Override
+    @Transactional
     public Board update(Long id, BoardRequestDto request, LocalDateTime now, User author) {
-        Board post = boardRepository.findById(id).orElseThrow();
+        Board post = boardMapper.selectBoardById(id);
 
         if (!post.getAuthor().equals(author))
-            throw new AccessDeniedException("글 작성자가 아님");
+            throw new RuntimeException("글 작성자가 아님");
 
         post.setTitle(request.getTitle());
         post.setBody(request.getBody());
@@ -42,31 +48,32 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    @Transactional
     public void delete(Long id, User author) {
-        Board post = boardRepository.findById(id).orElseThrow();
+        Board post = boardMapper.selectBoardById(id);
         if (!post.getAuthor().equals(author))
-            throw new AccessDeniedException("글 작성자가 아님");
+            throw new RuntimeException("글 작성자가 아님");
 
         boardRepository.deleteById(id);
     }
 
     @Override
     public Board read(Long id) {
-        return boardRepository.findById(id).orElseThrow();
+        return boardMapper.selectBoardById(id);
     }
 
     @Override
     public List<Board> list() {
-        return boardRepository.findAll();
+        return boardMapper.selectBoardAll();
     }
 
     @Override
     public List<Board> listByCategory(String category) {
-        return boardRepository.findByCategory(category);
+        return boardMapper.selectBoardByCategory(category);
     }
 
     @Override
     public Long count() {
-        return boardRepository.count();
+        return boardMapper.count();
     }
 }

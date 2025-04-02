@@ -20,5 +20,7 @@ public interface BoardService {
 
     List<Board> list();
 
+    List<Board> listByCategory(String category);
+
     Long count();
 }
