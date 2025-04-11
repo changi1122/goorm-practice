@@ -2,6 +2,7 @@ package databaseorm.domain.board;
 
 import databaseorm.domain.user.User;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -39,6 +40,7 @@ public class Board {
     @Column(name = "edited_at")
     private LocalDateTime lastEditedAt;
 
+    @Builder
     public Board(Long id, String title, String body, String category, User author, LocalDateTime createdAt) {
         this.id = id;
         this.title = title;
