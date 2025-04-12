@@ -49,4 +49,17 @@ public class Board {
         this.author = author;
         this.createdAt = createdAt;
     }
+
+    @Override
+    public String toString() {
+        return "Board{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", body='" + body + '\'' +
+                ", category='" + category + '\'' +
+                ", author=" + author +
+                ", createdAt=" + createdAt +
+                ", lastEditedAt=" + lastEditedAt +
+                '}';
+    }
 }

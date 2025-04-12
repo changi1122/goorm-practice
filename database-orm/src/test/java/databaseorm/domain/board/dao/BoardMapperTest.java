@@ -51,7 +51,7 @@ class BoardMapperTest {
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("게시판 테이블에 새로운 게시글을 저장합니다.")
     void insertBoard() {
         // given
         User author = userRepository.findByLoginId("loginid").orElseThrow();
@@ -62,12 +62,59 @@ class BoardMapperTest {
 
         // then
         assertThat(col).isEqualTo(1);
+
         List<Board> boardList = boardMapper.selectBoardAll();
         Board result = boardList.get(0);
-
         assertThat(result)
                 .extracting("title", "category")
                 .containsExactly("제목", "카테고리");
+    }
+
+    @Test
+    @DisplayName("게시판 테이블의 게시글을 수정합니다.")
+    void updateBoard() {
+        // given
+        User author = userRepository.findByLoginId("loginid").orElseThrow();
+        Board post = createPost("제목", author);
+        boardMapper.insertBoard(post);
+
+        // when
+        List<Board> boardList = boardMapper.selectBoardAll();
+        Board selectPost = boardMapper.selectBoardById(boardList.get(0).getId());
+        selectPost.setTitle("수정된 제목");
+        selectPost.setBody("<p>수정 본문</p>");
+        selectPost.setCategory("수정카테고리");
+
+        int col = boardMapper.updateBoard(selectPost.getId(), selectPost);
+
+        // then
+        assertThat(col).isEqualTo(1);
+
+        Board result = boardMapper.selectBoardById(selectPost.getId());
+        assertThat(result)
+                .extracting("title", "category", "body")
+                .containsExactly("수정된 제목", "수정카테고리", "<p>수정 본문</p>");
+    }
+
+    @Test
+    @DisplayName("게시판 테이블의 게시글을 삭제합니다.")
+    void deleteBoard() {
+        // given
+        User author = userRepository.findByLoginId("loginid").orElseThrow();
+        Board post = createPost("제목", author);
+        boardMapper.insertBoard(post);
+
+        // when
+        List<Board> boardList = boardMapper.selectBoardAll();
+        Board selectPost = boardMapper.selectBoardById(boardList.get(0).getId());
+
+        int col = boardMapper.deleteBoard(selectPost.getId());
+
+        // then
+        assertThat(col).isEqualTo(1);
+
+        List<Board> result = boardMapper.selectBoardAll();
+        assertThat(result).hasSize(0);
     }
 
     private Board createPost(String title, User author) {
