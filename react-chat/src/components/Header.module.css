@@ -1,0 +1,39 @@
+/* Header.module.css */
+
+.header {
+    background-color: #ffe812;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 20px;
+    border-bottom: 1px solid #e5e5e5;
+    border-radius: 0 0 12px 12px;
+  }
+  
+  .title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #000;
+  }
+  
+  .button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .button svg {
+    width: 24px;
+    height: 24px;
+    fill: #333;
+    transition: fill 0.2s ease-in-out;
+  }
+  
+  .button:hover svg {
+    fill: #000;
+  }
+  
