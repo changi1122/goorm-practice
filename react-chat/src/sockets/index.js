@@ -1,4 +1,4 @@
-import SockJS from 'sockjs-client';
+import SockJS from 'sockjs-client/dist/sockjs';
 import { Client } from '@stomp/stompjs';
 
 let stompClient;
@@ -17,7 +17,7 @@ export const connectSocket = (onMessage) => {
     stompClient.activate();
 }
 
-export const sendMessage = (message) => {
+export const sendStompMessage = (message) => {
     if (stompClient?.connected) {
         stompClient.publish({
             destination: '/app/chat',
