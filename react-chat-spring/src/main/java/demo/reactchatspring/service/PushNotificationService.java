@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class WebNotificationService {
+public class PushNotificationService {
 
     private final PushSubscriptionRepository pushSubscriptionRepository;
 
