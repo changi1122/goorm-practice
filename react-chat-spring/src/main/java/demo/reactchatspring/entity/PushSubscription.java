@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class PushSubscription {
 
     private Long subscriptionId;
-    private Long uuid; // userId 대용
+    private String uuid; // userId 대용
     private String endPoint;
     private String publicKey;
     private String auth;
@@ -22,7 +22,7 @@ public class PushSubscription {
     private LocalDateTime lastUsedAt;
 
     @Builder
-    public PushSubscription(Long subscriptionId, Long uuid, String endPoint, String publicKey, String auth,
+    public PushSubscription(Long subscriptionId, String uuid, String endPoint, String publicKey, String auth,
                             String deviceName, LocalDateTime createdAt, LocalDateTime lastUsedAt) {
         this.subscriptionId = subscriptionId;
         this.uuid = uuid;
