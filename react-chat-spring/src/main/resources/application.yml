@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: react-chat-spring
+
+  datasource:
+    url: jdbc:h2:mem:react_chat
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+
+webpush:
+  public-key: BBtyefD63XsMWfBgtJtzZ-Elh9lt3P68G6oKMoJMDUsjNAOEQjqvxOV-OgDYJuLWlIAc8YaQ2TCkzn2bkiIhDO0=
+  private-key: ODSO8Kqw0AMFHT4koLhNxG9ZwfY5jDOwG59EbRcZwZM
