@@ -6,6 +6,7 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Data
+@NoArgsConstructor
 public class PushSubscribeRequest {
 
     private String uuid; // userId 대용
@@ -14,6 +15,17 @@ public class PushSubscribeRequest {
     private String auth;
     private String deviceName;
     private LocalDateTime createdAt;
+
+    @Builder
+    public PushSubscribeRequest(String uuid, String endPoint, String publicKey, String auth, String deviceName,
+                                LocalDateTime createdAt) {
+        this.uuid = uuid;
+        this.endPoint = endPoint;
+        this.publicKey = publicKey;
+        this.auth = auth;
+        this.deviceName = deviceName;
+        this.createdAt = createdAt;
+    }
 
     public PushSubscription toEntity() {
         return PushSubscription.builder()
