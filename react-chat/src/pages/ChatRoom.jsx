@@ -1,10 +1,11 @@
 import { useState } from 'react';
+import { useOutletContext } from "react-router-dom";
 import useChatSocket from '../hooks/useChatSocket';
 import styles from './ChatRoom.module.css';
 
 function ChatRoom() {
 
-    const [uuid, setUuid] = useState(crypto.randomUUID());
+    const { uuid } = useOutletContext();
     const [input, setInput] = useState('');
     const [messages, sendMessage] = useChatSocket();
 
@@ -24,23 +25,11 @@ function ChatRoom() {
     return (
         <div>
             <div className={styles.chatBox}>
-                <div className={`${styles.chatMessage} ${styles.outgoing}`}>
-                    <div className={styles.message}>안녕하세요</div>
-                    <div className={styles.time}>오후 3:30</div>
-                </div>
-                <div className={`${styles.chatMessage} ${styles.incoming}`}>
-                    <div className={styles.message}>안녕하세요</div>
-                    <div className={styles.time}>오후 3:30</div>
-                </div>
-                <div className={`${styles.chatMessage} ${styles.incoming}`}>
-                    <div className={styles.message}>안녕하세요</div>
-                    <div className={styles.time}>오후 3:30</div>
-                </div>
                 {
                     messages && messages.map((message, index) => (
                         <div key={index} className={`${styles.chatMessage} ${message.sender === uuid ? styles.outgoing : styles.incoming}`}>
                             <div className={styles.message}>{message.content}</div>
-                            <div className={styles.time}>오후 3:30</div>
+                            <div className={styles.time}>{uuid}</div>
                         </div>
                     ))
                 }

@@ -1,9 +1,6 @@
 package demo.reactchatspring.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -12,6 +9,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @EqualsAndHashCode
+@ToString
 @NoArgsConstructor
 public class PushSubscription {
 
@@ -19,8 +17,11 @@ public class PushSubscription {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long subscriptionId;
     private String uuid; // userId 대용
+    @Column(length = 1000)
     private String endPoint;
+    @Column(length = 500)
     private String publicKey;
+    @Column(length = 500)
     private String auth;
     private String deviceName;
     private LocalDateTime createdAt;
