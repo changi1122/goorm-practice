@@ -27,7 +27,13 @@ public class PushNotificationService {
 
     @Transactional
     public PushSubscription subscribe(PushSubscribeRequest request) {
+        System.out.println(request);
+
         PushSubscription subscription = request.toEntity();
+
+        System.out.println(subscription);
+
+
         log.info("알림 구독: {}", subscription);
         return pushSubscriptionRepository.save(subscription);
     }
@@ -47,6 +53,36 @@ public class PushNotificationService {
             throw new RuntimeException("");
 
         for (PushSubscription subscription : subscriptions) {
+            try {
+                Notification notification = new Notification(
+                        subscription.getEndPoint(),
+                        subscription.getPublicKey(),
+                        subscription.getAuth(),
+                        objectMapper.writeValueAsBytes(message)
+                );
+
+                pushService.send(notification);
+
+                subscription.setLastUsedAt(now);
+                pushSubscriptionRepository.save(subscription);
+            }
+            catch (Exception e) {
+                log.error("push send error: ", e);
+            }
+        }
+    }
+
+    @Transactional
+    public void sendPushToAll(WebPushMessage message, LocalDateTime now) {
+
+        List<PushSubscription> subscriptions = pushSubscriptionRepository.findAll();
+        if (subscriptions.isEmpty())
+            throw new RuntimeException("");
+
+        for (PushSubscription subscription : subscriptions) {
+            // TODO 구독 저장 관련 문제있음
+            System.out.println(subscription);
+
             try {
                 Notification notification = new Notification(
                         subscription.getEndPoint(),
