@@ -1,7 +1,9 @@
 package demo.reactchatspring.controller.dto;
 
 import demo.reactchatspring.entity.PushSubscription;
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
