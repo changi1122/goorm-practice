@@ -1,10 +1,11 @@
 import { useState } from 'react';
+import { useOutletContext } from "react-router-dom";
 import useChatSocket from '../hooks/useChatSocket';
 import styles from './ChatRoom.module.css';
 
 function ChatRoom() {
 
-    const [uuid, setUuid] = useState(crypto.randomUUID());
+    const { uuid } = useOutletContext();
     const [input, setInput] = useState('');
     const [messages, sendMessage] = useChatSocket();
 

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import usePushNotifications from '../hooks/usePushNotification';
 import styles from './Header.module.css';
 
-function Header() {
+function Header({ uuid }) {
     const { isSubscribed, subscribe, unsubscribe } = usePushNotifications();
 
     function toggleSubscription() {

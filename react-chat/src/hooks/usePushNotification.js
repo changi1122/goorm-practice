@@ -5,7 +5,7 @@ import { sendSubscriptionToServer, removeSubscriptionFromServer } from '../servi
 const VAPID_PUBLIC_KEY = 'BBtyefD63XsMWfBgtJtzZ-Elh9lt3P68G6oKMoJMDUsjNAOEQjqvxOV-OgDYJuLWlIAc8YaQ2TCkzn2bkiIhDO0=';
 const SERVICE_WORKER_PATH = 'sw.js';
 
-export default function usePushNotifications() {
+export default function usePushNotifications(uuid) {
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [swRegistration, setSwRegistration] = useState(null);
 
@@ -37,7 +37,7 @@ export default function usePushNotifications() {
       applicationServerKey
     });
 
-    await sendSubscriptionToServer(subscription.endpoint, subscription.getKey('p256dh'), subscription.getKey('auth'));
+    await sendSubscriptionToServer(uuid, subscription.endpoint, subscription.getKey('p256dh'), subscription.getKey('auth'));
     setIsSubscribed(true);
   };
 
@@ -46,7 +46,7 @@ export default function usePushNotifications() {
     if (subscription) {
       const endpoint = subscription.endpoint;
       await subscription.unsubscribe();
-      await removeSubscriptionFromServer(endpoint);
+      await removeSubscriptionFromServer(uuid, endpoint);
       setIsSubscribed(false);
     }
   };
